@@ -1,5 +1,7 @@
 class Car < ApplicationRecord
-  
+  validates :company, :model, :purchase_date, 
+            :car_description, :registered_number, presence: true
+  validates :seats, :distance_driven, numericality: { only_integer: true }, presence: true       
   enum engine_type: {
     Petrol: 0,
     Diesel: 1,
@@ -19,4 +21,6 @@ class Car < ApplicationRecord
     Automatic: 1,
   }
   
+  #validations pending
+
 end
