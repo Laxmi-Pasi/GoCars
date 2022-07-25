@@ -1,0 +1,54 @@
+<!---navbar -->
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark ">
+  <div class="container-fluid ">
+    <a class="navbar-brand" href="#">GoCars</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse parent" id="navbarSupportedContent">
+      <ul class="navbar-nav mb-2 ms-5 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About Us</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Services
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Buy</a></li>
+            <li><a class="dropdown-item" href="#">Rent</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success me-5" type="submit">Search</button>
+          </form>
+        </li>
+      </ul>
+      <% if signed_in? %>
+        <li class="nav-item dropdown">
+          <a class="btn btn-outline-light me-2 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= current_user.email%>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><%= link_to "Profile", edit_user_registration_path,class:"dropdown-item" %></li>
+            <li><%= link_to "Become a Dealer", new_car_path , class:"dropdown-item"%></li>
+          </ul>
+        </li>
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: "false" }, class:"btn btn-outline-danger" %>
+      <% else %>
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item">
+            <%= link_to "Log in", new_user_session_path, class:"btn btn-outline-warning me-2" %>
+            <%= link_to "Register", new_user_registration_path, class:"btn btn-outline-primary" %>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </nav>
