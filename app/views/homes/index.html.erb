@@ -1,6 +1,0 @@
-<% if current_user %>
-  <%= button_to "Log-Out",destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= link_to "Log-IN",new_user_session_path %>
-  <%= link_to "Sign-UP",new_user_registration_path %>
-<% end %>
