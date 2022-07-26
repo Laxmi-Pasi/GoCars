@@ -1,9 +1,14 @@
-<h1>New car</h1>
-
-<%= render "form", car: @car %>
-
-<br>
-
-<div>
-  <%= link_to "Back to cars", cars_path %>
+<div class="set-center" style="margin-top:10%;">
+  <div class="card" style="width: 30rem;">
+    <div class="card-header">
+      <h2 class="text-center">Register Car</h2>
+    </div>
+    <div class="card-body">
+      <%= render "form" , car: @car %>
+      <br/>
+        <div>
+          <%= link_to "Back to cars" , cars_path , class:"btn-secondary border-0 shadow py-2 px-5"%>
+        </div>
+    </div>
+  </div>
 </div>
