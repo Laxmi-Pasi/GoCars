@@ -1,11 +1,11 @@
-<div class="set-center flex-column" style="height:100vh;">
-  <div class="card" style="width: 20rem;">
+<div class="set-center" style="margin-top:5%">
+  <div class="card" style="width: 30rem;">
     <div class="card-header">
       <h2 class="text-center">Sign Up</h2>
     </div>
     <div class="card-body">
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= render "users/shared/error_messages", resource: resource %>
+        <%= render "devise/shared/error_messages", resource: resource %>
         <div class="field">
           <%= f.label :first_name %><br />
           <%= f.text_field :first_name, autofocus: true, autocomplete: "First name", class: "mb-3 form-control" %>
@@ -24,8 +24,8 @@
         </div>
         <div class="field">
           <%= f.label :password %>
-          <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> minimum characters)</em>
+          <% if @minimum_password_length %><br/>
+            <em>(contains at least a lowercase letter, a uppercase, a digit, a special char and 8+ chars)</em>
           <% end %><br />
           <%= f.password_field :password, autocomplete: "new-password", class: "mb-3 form-control" %>
         </div>
@@ -38,10 +38,7 @@
         </div>
       <% end %>
       <div>
-        <%= render "users/shared/links" %>
-        <p>Have an account? 
-          <%= link_to "Log in", new_session_path(resource_name) %><br />
-        </p>
+        <%= render "devise/shared/links" %>
       </div>
     </div>
   </div>

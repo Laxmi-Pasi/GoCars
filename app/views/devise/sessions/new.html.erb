@@ -1,5 +1,5 @@
 <div class="set-center flex-column">
-  <div class="card" style="width: 20rem;">
+  <div class="card" style="width: 30rem;">
     <div class="card-header">
       <h2 class="text-center">Log In</h2>
     </div>
@@ -20,13 +20,15 @@
           </div>
         <% end %>
         <div class="actions d-flex justify-content-center mt-2">
-          <%= f.submit "Log in", class: "btn-primary border-0 rounded shadow w-100 my-3 py-2" %>
+          <%= f.submit "Log in", data: {turbo: false }, class: "btn-primary border-0 rounded shadow w-100 my-3 py-2" %>
         </div>
       <% end %>
       <div>
         <p>Don't have an account? 
           <%= link_to "Sign up", new_registration_path(resource_name) %><br />
         </p>
+          <p style="color:red;" class="notice"><%= notice %></p>
+          <p style="color:red;" class="alert"><%= alert %></p>
         <%= render "devise/shared/links" %>
       </div>
     </div>
