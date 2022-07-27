@@ -1,12 +1,14 @@
-<div class="set-center" style="margin-top:10%">
+<div style="margin-top:5%;display:flex;justify-content:space-around;">
   <div class="card" style="width: 30rem;">
     <div class="card-header">
       <h2 class="text-center">Edit <%= resource_name.to_s.humanize %>
       </h2>
     </div>
     <div class="card-body">
+      <div>
+        <%= render "devise/shared/error_messages", resource: resource %>  
+      </div>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-        <%= render "devise/shared/error_messages" , resource: resource %>
           <div class="field">
             <%= f.label :first_name %><br />
             <%= f.text_field :first_name, class: "mb-3 form-control" %>

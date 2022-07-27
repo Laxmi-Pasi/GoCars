@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  car: one
+  no_of_days: 1.5
+  Total_Price: 1.5
+
+two:
+  user: two
+  car: two
+  no_of_days: 1.5
+  Total_Price: 1.5
