@@ -1,11 +1,13 @@
-<div class="set-center" style="margin-top:5%">
+<div style="margin-top:5%;display:flex;justify-content:space-around;">
   <div class="card" style="width: 30rem;">
     <div class="card-header">
       <h2 class="text-center">Sign Up</h2>
     </div>
     <div class="card-body">
+      <div>
+        <%= render "devise/shared/error_messages", resource: resource %>  
+      </div>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
         <div class="field">
           <%= f.label :first_name %><br />
           <%= f.text_field :first_name, autofocus: true, autocomplete: "First name", class: "mb-3 form-control" %>
@@ -34,7 +36,7 @@
           <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "mb-3 form-control" %>
         </div>
         <div class="actions">
-          <%= f.submit "Sign up", class: "btn-primary border-0 rounded shadow w-100 my-3 py-2" %>
+          <%= f.submit "Sign up", class: "btn-primary border-0 rounded shadow w-100 my-3 py-2", data: {turbo: false} %>
         </div>
       <% end %>
       <div>
