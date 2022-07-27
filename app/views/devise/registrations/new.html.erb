@@ -8,8 +8,8 @@
         <%= render "devise/shared/error_messages", resource: resource %>
         <div class="field">
           <%= f.label :first_name %><br />
-          <%= f.text_field :first_name, class: "mb-3 form-control" %>
-        </div>  
+          <%= f.text_field :first_name, autofocus: true, autocomplete: "First name", class: "mb-3 form-control" %>
+        </div>
         <div class="field">
           <%= f.label :last_name %><br />
           <%= f.text_field :last_name, class: "mb-3 form-control" %>
@@ -27,14 +27,14 @@
           <% if @minimum_password_length %><br/>
             <em>(contains at least a lowercase letter, a uppercase, a digit, a special char and 8+ chars)</em>
           <% end %><br />
-          <%= f.password_field :password, autocomplete: "new-password" , class: "mb-3 form-control"%>
+          <%= f.password_field :password, autocomplete: "new-password", class: "mb-3 form-control" %>
         </div>
         <div class="field">
           <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "new-password" , class: "mb-3 form-control"%>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "mb-3 form-control" %>
         </div>
         <div class="actions">
-          <%= f.submit "Sign up", data: {turbo: false }, class: "btn btn-primary mb-3 form-control"   %>
+          <%= f.submit "Sign up", class: "btn-primary border-0 rounded shadow w-100 my-3 py-2" %>
         </div>
       <% end %>
       <div>
