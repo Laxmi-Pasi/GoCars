@@ -63,7 +63,7 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
-gem 'devise'
+gem "devise"
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
@@ -71,3 +71,11 @@ group :test do
   gem "webdrivers"
 end
 
+gem "jquery-rails"
+gem "carrierwave"
+group :assets do
+  gem "uglifier", ">= 1.0.3"
+end
+gem 'cloudinary'
+gem "image_processing"
+gem 'dotenv-rails', groups: [:development, :test]

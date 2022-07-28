@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_27_091518) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_28_062708) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_27_091518) do
     t.integer "buyer_id"
     t.integer "car_status", null: false
     t.float "rent_price"
+    t.string "main_car_image"
   end
 
   create_table "rents", force: :cascade do |t|

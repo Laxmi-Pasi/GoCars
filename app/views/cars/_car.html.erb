@@ -3,50 +3,49 @@
     <strong>Company:</strong>
     <%= car.company %>
   </p>
-
   <p>
     <strong>Model:</strong>
     <%= car.model %>
   </p>
-
   <p>
     <strong>Year:</strong>
     <%= car.purchase_date.year %>
   </p>
-
   <p>
     <strong>Engine type:</strong>
     <%= car.engine_type %>
   </p>
-
   <p>
     <strong>Car type:</strong>
     <%= car.car_type %>
   </p>
-
   <p>
     <strong>Seats:</strong>
     <%= car.seats %>
   </p>
-
   <p>
     <strong>Distance driven:</strong>
     <%= car.distance_driven %>
   </p>
-
   <p>
     <strong>Transmission type:</strong>
     <%= car.transmission_type %>
   </p>
-
   <p>
     <strong>Car description:</strong>
     <%= car.car_description %>
   </p>
-
   <p>
     <strong>Registered number:</strong>
     <%= car.registered_number %>
   </p>
-
+  <% if car.main_car_image? %>
+  <p>
+    <strong>Main Car Image:</strong> <br/>
+    <%#= car.main_car_image %>
+    <a href="<%= car.main_car_image.url %>" target="_blank">
+      <%= image_tag(car.main_car_image.thumbnail.url, :class => "thumbnail inline") %>
+    </a>
+  </p>
+  <% end %>
 </div>
