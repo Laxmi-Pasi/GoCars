@@ -18,51 +18,55 @@
   <%= form_with(model: car) do |form| %>
     <div>
       <%= form.label :company, class:"mt-3"%>
-        <%= form.text_field :company, class:"mb-2 form-control" %>
+      <%= form.text_field :company, class:"mb-2 form-control" %>
     </div>
     <div>
       <%= form.label :model, style: "display: block" %>
-        <%= form.text_field :model, class:"mb-2 form-control" %>
+      <%= form.text_field :model, class:"mb-2 form-control" %>
     </div>
     <div>
       <%= form.label :purchase_date, style: "display: block" %>
-        <%= form.date_select :purchase_date, start_year: 1800, end_year: Time.now.year, class:"mb-2 fa fa-calendar"
+      <%= form.date_select :purchase_date, start_year: 1800, end_year: Time.now.year, class:"mb-2 fa fa-calendar"
           %>
     </div>
     <div class="dropdown-style">
       <%= form.label :engine_type, style: "display: block" %>
-        <%= form.select(:engine_type, Car.engine_types.keys.map {|key| [key.humanize, key]}) %>
+      <%= form.select(:engine_type, Car.engine_types.keys.map {|key| [key.humanize, key]}) %>
     </div>
     <div class="dropdown-style">
       <%= form.label :car_type, style: "display: block" %>
-        <%= form.select(:car_type, Car.car_types.keys.map {|key| [key.humanize, key]}) %>
+      <%= form.select(:car_type, Car.car_types.keys.map {|key| [key.humanize, key]}) %>
     </div>
     <div>
       <%= form.label :seats, style: "display: block" %>
-        <%= form.number_field :seats, class:"mb-2 form-control" %>
+      <%= form.number_field :seats, class:"mb-2 form-control" %>
     </div>
     <div>
       <%= form.label :distance_driven, style: "display: block" %>
-        <%= form.number_field :distance_driven, class:"mb-2 form-control" %>
+      <%= form.number_field :distance_driven, class:"mb-2 form-control" %>
     </div>
     <div class="dropdown-style">
       <%= form.label :transmission_type, style: "display: block" %>
-        <%= form.select(:transmission_type, Car.transmission_types.keys.map {|key| [key.humanize, key]}) %>
+      <%= form.select(:transmission_type, Car.transmission_types.keys.map {|key| [key.humanize, key]}) %>
     </div>
     <div>
       <%= form.label :car_description, style: "display: block" %>
-        <%= form.text_area :car_description, class:"mb-2 form-control" %>
+      <%= form.text_area :car_description, class:"mb-2 form-control" %>
     </div>
     <div>
       <%= form.label :registered_number, style: "display: block" %>
-        <%= form.text_field :registered_number, class:"mb-2 form-control" %>
+      <%= form.text_field :registered_number, class:"mb-2 form-control" %>
     </div>
     <div>
       <%= form.hidden_field :owner_id, value: current_user.id %>
     </div>
     <div class="dropdown-style">
       <%= form.label :car_status, style: "display: block" %>
-        <%= form.select(:car_status, Car.car_statuses.keys.map {|key| [key.humanize, key]}) %>
+      <%= form.select(:car_status, Car.car_statuses.keys.map {|key| [key.humanize, key]}) %>
+    </div>
+    <div class="dropdown-style">
+      <%= form.file_field :main_car_image, style: "display: block" %>
+      <%= form.hidden_field(:main_car_image_cache) %>
     </div>
     <div>
       <%= form.submit class:"btn-secondary border-0 shadow py-2 px-5" %>

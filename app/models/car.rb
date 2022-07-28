@@ -2,6 +2,7 @@ class Car < ApplicationRecord
   has_many :rents
   has_many :users, through: :rents
   belongs_to :owner, class_name: "User"
+  mount_uploader :main_car_image, MainCarImageUploader
   validates :company, :model, :purchase_date, 
             :car_description, :registered_number, presence: true
   validates :seats, :distance_driven, numericality: { only_integer: true }, presence: true       
