@@ -57,14 +57,23 @@ class CarsController < ApplicationController
     end
   end
 
+  # DELETE /cars/1/car_image
+
+  def delete_car_image
+    @car = Car.find(params['id'])
+    @car_image = @car.car_images.find(params['image_id'])
+    @car_image.purge
+    respond_to do |format|
+      format.html { redirect_to @car, notice: 'car image was successfully destroyed.' }
+    end
+  end
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_car
       @car = Car.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def car_params
-      params.require(:car).permit(:company,:main_car_image, :model, :purchase_date,:car_status, :engine_type, :car_type, :seats,:owner_id, :distance_driven, :transmission_type, :car_description, :registered_number)
+      params.require(:car).permit(:company,:main_car_image, :model, :purchase_date,:car_status, :engine_type, :car_type, :seats,:owner_id, :distance_driven, :transmission_type, :car_description, :registered_number, car_images: [])
     end
 end

@@ -1,12 +1,7 @@
 Rails.application.routes.draw do
-  resources :cars
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
   root "home#home"
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
+  resources :cars do
+    delete 'delete_car_image', on: :member
+  end
 end
