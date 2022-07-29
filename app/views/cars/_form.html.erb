@@ -64,9 +64,13 @@
       <%= form.label :car_status, style: "display: block" %>
       <%= form.select(:car_status, Car.car_statuses.keys.map {|key| [key.humanize, key]}) %>
     </div>
-    <div class="dropdown-style">
-      <%= form.file_field :main_car_image, style: "display: block" %>
-      <%= form.hidden_field(:main_car_image_cache) %>
+    <div class="field">
+      <%= form.label :main_car_image %>
+      <%= form.file_field :main_car_image %>
+    </div>
+    <div class="field">
+      <%= form.label :car_images, "Upload Car Images:" %>
+      <%= form.file_field :car_images, multiple: true %>
     </div>
     <div>
       <%= form.submit class:"btn-secondary border-0 shadow py-2 px-5" %>
