@@ -39,23 +39,4 @@
     <strong>Registered number:</strong>
     <%= car.registered_number %>
   </p>
-  <% if car.main_car_image.key?%>
-    <p>
-      <%= cl_image_tag(car.main_car_image.key, height: 200, width: 200) %>
-    </p>
-  <% end %>
-  <% if car.has_car_images?%>
-  <p>
-  <strong>Car Images:</strong>
-  <% car.car_images.each do |image| %>
-    <div style="display: inline-block; width: 200">
-      <%#= link_to(cl_image_tag(image.key, height: 200, width: 200, gravity: :auto, crop: :thumb, sign_url: true, fetch_format: :auto), url_for(image)) %>
-      <%= cl_image_tag(image.key, height: 200, width: 200) %>
-      <p style="text-align: center;">
-        <%= button_to 'Delete Image', delete_car_image_car_path(car),params: {image_id:image.id}, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </p>
-    </div>
-  <% end %>
-  </p>
-  <% end %>
 </div>

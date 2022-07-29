@@ -1,10 +1,44 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @car %>
+<div>
+  <% if @car.main_car_image.key?%>
+    <p> 
+      <strong>Main Car Image:</strong>
+    </p>
+    <p>
+      <%= cl_image_tag(@car.main_car_image.key, height: 200, width: 200) %>
+    </p>
+  <% end %>
+  <% if @car.has_car_images?%>
+    <p>
+    <strong>Car Images:</strong>
+    <% @car.car_images.each do |image| %>
+      <div style="display: inline-block; width: 200">
+        <%#= link_to(cl_image_tag(image.key, height: 200, width: 200, gravity: :auto, crop: :thumb, sign_url: true, fetch_format: :auto), url_for(image)) %>
+        <%= cl_image_tag(image.key, height: 200, width: 200) %>
+      </div>
+    <% end %>
+    <p>
+    </p>
+  <% end %>
+</div>
 
+<!-- To add car_image -->
+<div class="border">
+<%= form_with(model: @car, local: true) do |form| %>
+  <p>
+    <%= form.label :car_images, "Upload New Photos:" %>
+    <%= form.file_field :car_images, multiple: true %>
+  </p>
+  <div class="actions">
+    <%= form.submit "Upload" , data: { turbo: false}%>
+  </div>
+<% end %>
+
+</div>
 <div>
   <%= link_to "Edit this car", edit_car_path(@car) %> |
   <%= link_to "Back to cars", cars_path %>
-
   <%= button_to "Destroy this car", @car, method: :delete %>
 </div>

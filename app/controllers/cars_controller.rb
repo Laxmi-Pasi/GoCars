@@ -22,7 +22,6 @@ class CarsController < ApplicationController
   # POST /cars or /cars.json
   def create
     @car = Car.new(car_params)
-
     respond_to do |format|
       if @car.save
         format.html { redirect_to car_url(@car), notice: "Car was successfully created." }
@@ -50,7 +49,6 @@ class CarsController < ApplicationController
   # DELETE /cars/1 or /cars/1.json
   def destroy
     @car.destroy
-
     respond_to do |format|
       format.html { redirect_to cars_url, notice: "Car was successfully destroyed." }
       format.json { head :no_content }
