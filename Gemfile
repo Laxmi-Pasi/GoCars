@@ -72,12 +72,6 @@ group :test do
 end
 
 gem "jquery-rails"
-gem "carrierwave"
-group :assets do
-  gem "uglifier", ">= 1.0.3"
-end
 gem 'cloudinary'
-gem "image_processing"
 gem 'dotenv-rails', groups: [:development, :test]
-
 gem "pry", "~> 0.14.1"
