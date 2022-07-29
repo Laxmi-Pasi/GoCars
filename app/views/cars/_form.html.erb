@@ -1,9 +1,10 @@
 <div class="form-group">
   <!--Error Message-->
+  <%# <% binding.pry %> %>
   <% if car.errors.any? %>
     <div style="color: red">
       <h2>
-        <%= pluralize(car.errors.count, "error" ) %> prohibited this car from being saved:
+          <%= pluralize(car.errors.count, "error" ) %> prohibited this car from being saved:
       </h2>
       <ul>
         <% car.errors.each do |error| %>
@@ -15,7 +16,7 @@
     </div>
   <% end %>
   <!-- Form Started Here -->
-  <%= form_with(model: car, local:true) do |form| %>
+  <%= form_with(model: car) do |form| %>
     <div>
       <%= form.label :company, class:"mt-3"%>
       <%= form.text_field :company, class:"mb-2 form-control" %>
@@ -71,9 +72,53 @@
     <div class="field">
       <%= form.label :car_images, "Upload Car Images:" %>
       <%= form.file_field :car_images, multiple: true %>
+
+    <div>
+      <%= form.label :For_Sell %>
+      <%= form.check_box :sell, id: "sell", onchange: "sell_check()" %>
     </div>
+
+    <h6 id="rent_msg"></h6>
+    <div>
+      <%= form.label :For_rent %>
+      <%= form.check_box :rent, id:"rent", onchange: "rent_check()" %>
+    </div>
+
+    <div style="display:none" id= "sell_div" >
+      <%= form.label :Sell_Price, style: "display: block" %>
+      <%= form.number_field :sell_price, class:"mb-2 form-control", id: "sell_price" %>
+    </div>
+
+    <div style="display:none" id= "rent_div" >
+      <%= form.label :Rent_Price, style: "display: block" %>
+      <%= form.number_field :rent_price, class:"mb-2 form-control", id: "rent_price" %>
+    </div>
+  
     <div>
       <%= form.submit class:"btn-secondary border-0 shadow py-2 px-5" %>
     </div>
+
   <% end %>
 </div>
+
+<script type="text/javascript">
+
+    function sell_check() {
+
+        if (document.getElementById('sell').checked == true) {
+            document.getElementById('sell_div').style.display = "block";
+        } else {
+          document.getElementById('sell_div').style.display = "none";
+        }
+    }
+
+    function rent_check() {
+
+        if (document.getElementById('rent').checked == true) {
+            document.getElementById('rent_div').style.display = "block";
+        } else {
+          document.getElementById('rent_div').style.display = "none";
+        }
+    }
+
+</script>

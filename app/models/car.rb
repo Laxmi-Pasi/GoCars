@@ -1,4 +1,6 @@
 class Car < ApplicationRecord
+  attr_accessor :sell_checked
+  attr_accessor :rent_checked
   has_many :rents
   has_many :users, through: :rents, dependent: :destroy
   belongs_to :owner, class_name: "User"
@@ -17,4 +19,7 @@ class Car < ApplicationRecord
   def has_car_images?
     car_images_attachments != []
   end
+  # serialize :purpose, Array
+  validates :sell_price, presence: true, if: :sell_checked
+  validates :rent_price, presence: true, if: :rent_checked
 end

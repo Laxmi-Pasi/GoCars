@@ -22,8 +22,25 @@ class CarsController < ApplicationController
   # POST /cars or /cars.json
   def create
     @car = Car.new(car_params)
+
+    if params[:car][:sell] == "1" && ( params[:car][:sell_price] == "" || params[:car][:sell_price] == "0" || params[:car][:sell_price] < "0" )
+      @car.sell_checked = true
+    end
+
+    if params[:car][:rent] == "1" && ( params[:car][:rent_price] == "" || params[:car][:rent_price] == "0" || params[:car][:rent_price] < "0" )
+      @car.rent_checked = true
+    end
+    
     respond_to do |format|
       if @car.save
+        if params[:car][:sell] == "1"
+          @car.purpose.push("sell")
+        end
+    
+        if params[:car][:rent] == "1"
+          @car.purpose.push("rent")
+        end
+        @car.save
         format.html { redirect_to car_url(@car), notice: "Car was successfully created." }
         format.json { render :show, status: :created, location: @car }
       else
@@ -72,6 +89,6 @@ class CarsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def car_params
-      params.require(:car).permit(:company,:main_car_image, :model, :purchase_date,:car_status, :engine_type, :car_type, :seats,:owner_id, :distance_driven, :transmission_type, :car_description, :registered_number, car_images: [])
+      params.require(:car).permit(:company,:main_car_image, :model, :purchase_date, :engine_type, :car_type, :seats,:owner_id, :distance_driven, :transmission_type, :car_description, :registered_number, car_images: [])
     end
 end
