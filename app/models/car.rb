@@ -15,6 +15,6 @@ class Car < ApplicationRecord
 
   # to check car images
   def has_car_images?
-    car_images_attachments === [] ? false : true
+    car_images_attachments != []
   end
 end
