@@ -11,4 +11,40 @@
         </div>
     </div>
   </div>
+
+  <div>
+  <% if @car.main_car_image.key?%>
+    <p> 
+      <strong>Main Car Image:</strong>
+    </p>
+    <p>
+      <%= cl_image_tag(@car.main_car_image.key, height: 200, width: 200) %>
+    </p>
+  <% end %>
+  <% if @car.has_car_images?%>
+    <p>
+    <strong>Car Images:</strong>
+    <% @car.car_images.each do |image| %>
+      <div style="display: inline-block; width: 200">
+        <%#= link_to(cl_image_tag(image.key, height: 200, width: 200, gravity: :auto, crop: :thumb, sign_url: true, fetch_format: :auto), url_for(image)) %>
+        <%= cl_image_tag(image.key, height: 200, width: 200) %>
+        <p style="text-align: center;">
+          <%= button_to 'Delete Image', delete_car_image_car_path(@car),params: {image_id:image.id}, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </p>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<!-- To add car_image -->
+<div class="border">
+  <%= form_with(model: @car, local: true) do |form| %>
+    <p>
+      <%= form.label :car_images, "Upload New Photos:" %>
+      <%= form.file_field :car_images, multiple: true %>
+    </p>
+    <div class="actions">
+      <%= form.submit "Upload" , data: { turbo: false}%>
+    </div>
+  <% end %>
 </div>

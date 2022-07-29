@@ -13,8 +13,8 @@ module ZoomCars
     if ['development', 'test'].include? ENV['RAILS_ENV']
       Dotenv::Railtie.load
     end
+    config.active_storage.replace_on_assign_to_many = false
     # Configuration for the application, engines, and railties goes here.
-    #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #

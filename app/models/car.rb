@@ -1,8 +1,8 @@
 class Car < ApplicationRecord
   has_many :rents
-  has_many :users, through: :rents
+  has_many :users, through: :rents, dependent: :destroy
   belongs_to :owner, class_name: "User"
-  has_one_attached :main_car_image
+  has_one_attached :main_car_image, dependent: :destroy
   has_many_attached :car_images
   
   validates :company, :model, :purchase_date, 
