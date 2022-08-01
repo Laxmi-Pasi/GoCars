@@ -75,7 +75,7 @@ class CarsController < ApplicationController
   end
   private
     def set_car
-      @car = Car.find(params[:id])
+      @car = Car.friendly.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
