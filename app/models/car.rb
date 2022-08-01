@@ -2,6 +2,8 @@ class Car < ApplicationRecord
   attr_accessor :sell_checked
   attr_accessor :rent_checked
   attr_accessor :invalid_purpose
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
   has_many :rents
   has_many :users, through: :rents, dependent: :destroy
   belongs_to :owner, class_name: "User"
@@ -10,6 +12,7 @@ class Car < ApplicationRecord
   
   validates :company, :model, :purchase_date, 
             :car_description, :registered_number, presence: true
+  validates :registered_number, presence: true, uniqueness: true 
   validates :seats, :distance_driven, numericality: { only_integer: true }, presence: true       
   enum engine_type: [:Petrol, :Diesel, :Hybrid, :EV ]
   enum car_type: [:Hatchback, :Sedan, :SUV, :Supercar]
@@ -24,4 +27,12 @@ class Car < ApplicationRecord
   validates :sell_price, presence: true, if: :sell_checked
   validates :rent_price, presence: true, if: :rent_checked
   validates :purpose, presence: { message: "Car should be available for one purpose" }, if: :invalid_purpose
+
+  # to add slug_candidates
+
+  def slug_candidates
+    [
+      [:company, :registered_number, :car_type]
+    ]
+  end
 end

@@ -23,3 +23,13 @@ require 'time'
   # --------------  Confirm User-Account ------------
   user.update(confirmed_at: Time.now())
 end
+
+# for user model
+# email=['abcd@gmail.com','car@gmail.com','gocars@gmail.com','simform@gmail.com','zoomcars@gmail.com']
+# 5.times do |i|
+#   user = User.create!(first_name:Faker::Name.first_name,last_name:Faker::Name.last_name,contact:Faker::PhoneNumber.subscriber_number(length: 10),email:email[i],password:'Abcd@123')
+#   user.
+# end
+# 5.times do |i|
+#   puts i
+# end

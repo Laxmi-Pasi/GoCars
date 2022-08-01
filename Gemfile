@@ -76,3 +76,5 @@ gem "jquery-rails"
 gem 'cloudinary'
 gem 'dotenv-rails', groups: [:development, :test]
 gem "pry", "~> 0.14.1"
+gem 'faker'
+gem 'friendly_id', '~> 5.1.0', require: "friendly_id"
