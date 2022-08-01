@@ -1,6 +1,5 @@
 <div class="form-group">
   <!--Error Message-->
-  <%# <% binding.pry %> %>
   <% if car.errors.any? %>
     <div style="color: red">
       <h2>
@@ -61,10 +60,6 @@
     <div>
       <%= form.hidden_field :owner_id, value: current_user.id %>
     </div>
-    <div class="dropdown-style">
-      <%= form.label :car_status, style: "display: block" %>
-      <%= form.select(:car_status, Car.car_statuses.keys.map {|key| [key.humanize, key]}) %>
-    </div>
     <div class="field">
       <%= form.label :main_car_image %>
       <%= form.file_field :main_car_image %>
@@ -75,25 +70,26 @@
 
     <div>
       <%= form.label :For_Sell %>
-      <%= form.check_box :sell, id: "sell", onchange: "sell_check()" %>
+      <%= form.check_box :sell, id: "sell", onchange: "sell_check()", checked: car.purpose.include?("sell") ? true : false  %>
     </div>
 
-    <h6 id="rent_msg"></h6>
     <div>
       <%= form.label :For_rent %>
-      <%= form.check_box :rent, id:"rent", onchange: "rent_check()" %>
+      <%= form.check_box :rent, id:"rent", onchange: "rent_check()", checked: car.purpose.include?("rent") ? true : false %>
     </div>
 
-    <div style="display:none" id= "sell_div" >
+    <% sell_display_style = car.purpose.include?("sell") ? 'block' : 'none' %>
+    <div style="display:<%= sell_display_style %>" id= "sell_div" >
       <%= form.label :Sell_Price, style: "display: block" %>
       <%= form.number_field :sell_price, class:"mb-2 form-control", id: "sell_price" %>
     </div>
 
-    <div style="display:none" id= "rent_div" >
+    <% rent_display_style = car.purpose.include?("rent") ? 'block' : 'none' %>
+    <div style="display:<%= rent_display_style %>" id= "rent_div" >
       <%= form.label :Rent_Price, style: "display: block" %>
       <%= form.number_field :rent_price, class:"mb-2 form-control", id: "rent_price" %>
     </div>
-  
+
     <div>
       <%= form.submit class:"btn-secondary border-0 shadow py-2 px-5" %>
     </div>
