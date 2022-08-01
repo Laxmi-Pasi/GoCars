@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_29_043923) do
     t.text "purpose", default: [], array: true
     t.float "sell_price"
     t.integer "buyer_id"
-    t.integer "car_status", null: false
+    t.integer "car_status", default: 0
     t.float "rent_price"
   end
 

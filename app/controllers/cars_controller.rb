@@ -23,23 +23,11 @@ class CarsController < ApplicationController
   def create
     @car = Car.new(car_params)
 
-    if params[:car][:sell] == "1" && ( params[:car][:sell_price] == "" || params[:car][:sell_price] == "0" || params[:car][:sell_price] < "0" )
-      @car.sell_checked = true
-    end
+    validate_car(@car)
 
-    if params[:car][:rent] == "1" && ( params[:car][:rent_price] == "" || params[:car][:rent_price] == "0" || params[:car][:rent_price] < "0" )
-      @car.rent_checked = true
-    end
-    
     respond_to do |format|
       if @car.save
-        if params[:car][:sell] == "1"
-          @car.purpose.push("sell")
-        end
-    
-        if params[:car][:rent] == "1"
-          @car.purpose.push("rent")
-        end
+        add_to_car(@car)
         @car.save
         format.html { redirect_to car_url(@car), notice: "Car was successfully created." }
         format.json { render :show, status: :created, location: @car }
@@ -52,8 +40,11 @@ class CarsController < ApplicationController
 
   # PATCH/PUT /cars/1 or /cars/1.json
   def update
+    validate_car(@car)
     respond_to do |format|
       if @car.update(car_params)
+        add_to_car(@car)
+        @car.save
         format.html { redirect_to car_url(@car), notice: "Car was successfully updated." }
         format.json { render :show, status: :ok, location: @car }
       else
@@ -90,5 +81,46 @@ class CarsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def car_params
       params.require(:car).permit(:company,:main_car_image, :model, :purchase_date, :engine_type, :car_type, :seats,:owner_id, :distance_driven, :transmission_type, :car_description, :registered_number, car_images: [])
+    end
+
+    # ------ To check optional validation -------
+    def validate_car(car)
+      if params[:car][:sell] == "1" && ( params[:car][:sell_price] == "" || params[:car][:sell_price] == "0" || params[:car][:sell_price] < "0" )
+        car.sell_checked = true
+        car.sell_price = nil
+      end
+  
+      if params[:car][:rent] == "1" && ( params[:car][:rent_price] == "" || params[:car][:rent_price] == "0" || params[:car][:rent_price] < "0" )
+        car.rent_checked = true
+        car.rent_price = nil
+      end
+
+      if params[:car][:sell] == "0" && params[:car][:rent] == "0"
+        car.invalid_purpose = true
+        car.purpose.clear
+      end
+    end
+
+    # ------- To add optional value to object -------
+    def add_to_car(car)
+      if params[:car][:sell] == "1"
+        if !car.purpose.include?("sell")
+          car.purpose.push("sell")
+        end
+        car.sell_price = params[:car][:sell_price]
+      else
+        car.purpose.delete("sell")
+        car.sell_price = nil 
+      end
+
+      if params[:car][:rent] == "1"
+        if !car.purpose.include?("rent")
+          car.purpose.push("rent")
+        end
+        car.rent_price = params[:car][:rent_price]
+      else
+        car.purpose.delete("rent")
+        car.rent_price = nil
+      end
     end
 end

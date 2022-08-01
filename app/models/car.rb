@@ -1,6 +1,7 @@
 class Car < ApplicationRecord
   attr_accessor :sell_checked
   attr_accessor :rent_checked
+  attr_accessor :invalid_purpose
   has_many :rents
   has_many :users, through: :rents, dependent: :destroy
   belongs_to :owner, class_name: "User"
@@ -22,4 +23,5 @@ class Car < ApplicationRecord
   # serialize :purpose, Array
   validates :sell_price, presence: true, if: :sell_checked
   validates :rent_price, presence: true, if: :rent_checked
+  validates :purpose, presence: { message: "Car should be available for one purpose" }, if: :invalid_purpose
 end
