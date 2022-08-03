@@ -39,6 +39,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
             <li><%= link_to "Profile", edit_user_registration_path,class:"dropdown-item" %></li>
             <li><%= link_to "Become a Dealer", new_car_path , class:"dropdown-item"%></li>
+            <li><%= link_to "My Cars",root_path(my_cars: "my_cars"), class:"dropdown-item" %>
           </ul>
         </li>
         <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: "false" }, class:"btn btn-outline-danger" %>
@@ -52,4 +53,3 @@
       <% end %>
     </div>
   </nav>
-

@@ -1,4 +1,7 @@
 <!-- rent section -->
+<% if flash[:alert] %>
+  <p class="alert alert-danger"><%= flash[:alert] %></p>
+<% end %>
 <section class="pt-5 event-showcase">
   <div class="container">
     <div class="row d-flex justify-content-evently">

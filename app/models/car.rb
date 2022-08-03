@@ -35,4 +35,21 @@ class Car < ApplicationRecord
       [:company, :registered_number, :car_type]
     ]
   end
+
+  def currently_rent_by
+    if car_status == "rent"
+      rent = Rent.where(car_id: id).last.user
+    else
+      "Car is Available for Rent"
+    end
+  end
+
+  def rent_by_all
+    all_rents = Rent.where(car_id: id)
+    renters = []
+    all_rents.each do |renter|
+      renters.push(renter.user)
+    end
+    return renters
+  end
 end

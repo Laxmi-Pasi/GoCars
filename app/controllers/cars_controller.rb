@@ -1,9 +1,14 @@
 class CarsController < ApplicationController
   before_action :set_car, only: %i[ show edit update destroy ]
+  authorize_resource
 
   # GET /cars or /cars.json
   def index
-    @cars = Car.all
+    if current_user
+     @cars = params[:my_cars] ? Car.where(owner_id: current_user.id) : Car.where.not(owner_id: current_user.id) 
+    else
+      @cars = Car.all
+    end
   end
 
   # GET /cars/1 or /cars/1.json
@@ -73,6 +78,7 @@ class CarsController < ApplicationController
       format.html { redirect_to @car, notice: 'car image was successfully destroyed.' }
     end
   end
+
   private
     def set_car
       @car = Car.friendly.find(params[:id])
