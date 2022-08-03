@@ -1,42 +1,45 @@
-<div id="<%= dom_id car %>">
-  <p>
-    <strong>Company:</strong>
-    <%= car.company %>
-  </p>
-  <p>
-    <strong>Model:</strong>
-    <%= car.model %>
-  </p>
-  <p>
-    <strong>Year:</strong>
-    <%= car.purchase_date.year %>
-  </p>
-  <p>
-    <strong>Engine type:</strong>
-    <%= car.engine_type %>
-  </p>
-  <p>
-    <strong>Car type:</strong>
-    <%= car.car_type %>
-  </p>
-  <p>
-    <strong>Seats:</strong>
-    <%= car.seats %>
-  </p>
-  <p>
-    <strong>Distance driven:</strong>
-    <%= car.distance_driven %>
-  </p>
-  <p>
-    <strong>Transmission type:</strong>
-    <%= car.transmission_type %>
-  </p>
-  <p>
-    <strong>Car description:</strong>
-    <%= car.car_description %>
-  </p>
-  <p>
-    <strong>Registered number:</strong>
-    <%= car.registered_number %>
-  </p>
+<div class="car_image_card mx-3 my-3" style="width: 18rem;height: 25rem;">
+  <div>
+    <div style="height:198px;width:262px;">
+      <% if params[:action] == "index" %>
+        <%= link_to car_path(car) do %>
+          <%# ------- Car's Main image goes here ------ %>
+          <%= image_tag("car2.jpeg", :alt => "rss feed", class: "card-img-top") %>
+        <% end %>
+      <% else %>
+        <%= image_tag("car2.jpeg", :alt => "rss feed", class: "card-img-top") %>
+      <% end %>
+    </div>
+  </div>
+  <div class="card-body mt-5">
+    <p>Car Name: <%= car.company %> <%= car.model %> </p>
+    <p>Kms Covered: <%= car.distance_driven %></p>
+    <div class="wrapper d-flex flex-column justify-content-between">
+      <% if car.owner != current_user %>
+        <% if car.sell_price.present? %>
+          <div class="d-flex justify-content-between">
+            <strong>Sell-Price: <%= car.sell_price %></strong>
+            <a href="#" class="btn btn-outline-primary btn-sm">Buy</a>
+          </div>
+        <% end %>
+        <% if car.rent_price.present? %>
+          <div class="d-flex justify-content-between mt-3">
+            <p><strong>Rent-Price: <%= car.rent_price %></strong></p>
+            <a href="#" class="btn btn-outline-success btn-sm">Rent</a>
+          </div>
+        <% end %>
+      <% else %>
+        <% if car.sell_price.present? %>
+          <div class="d-flex justify-content-between">
+            <strong>Sell-Price: <%= car.sell_price %></strong>
+          </div>
+        <% end %>
+        <% if car.rent_price.present? %>
+          <div class="d-flex justify-content-between mt-1">
+            <strong>Rent-Price: <%= car.rent_price %></strong>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>

@@ -27,7 +27,6 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
-gem "jquery-rails"
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
 
@@ -78,3 +77,4 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem "pry", "~> 0.14.1"
 gem 'faker'
 gem 'friendly_id', '~> 5.1.0', require: "friendly_id"
+gem 'cancancan'
