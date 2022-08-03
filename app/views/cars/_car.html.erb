@@ -16,25 +16,25 @@
     <p>Kms Covered: <%= car.distance_driven %></p>
     <div class="wrapper d-flex flex-column justify-content-between">
       <% if car.owner != current_user %>
-        <% if car.sell_price.present? %>
+        <% if car.sell_price %>
           <div class="d-flex justify-content-between">
             <strong>Sell-Price: <%= car.sell_price %></strong>
             <a href="#" class="btn btn-outline-primary btn-sm">Buy</a>
           </div>
         <% end %>
-        <% if car.rent_price.present? %>
+        <% if car.rent_price %>
           <div class="d-flex justify-content-between mt-3">
             <p><strong>Rent-Price: <%= car.rent_price %></strong></p>
             <a href="#" class="btn btn-outline-success btn-sm">Rent</a>
           </div>
         <% end %>
       <% else %>
-        <% if car.sell_price.present? %>
+        <% if car.sell_price %>
           <div class="d-flex justify-content-between">
             <strong>Sell-Price: <%= car.sell_price %></strong>
           </div>
         <% end %>
-        <% if car.rent_price.present? %>
+        <% if car.rent_price %>
           <div class="d-flex justify-content-between mt-1">
             <strong>Rent-Price: <%= car.rent_price %></strong>
           </div>

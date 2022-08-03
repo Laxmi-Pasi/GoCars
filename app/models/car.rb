@@ -38,18 +38,17 @@ class Car < ApplicationRecord
 
   def currently_rent_by
     if car_status == "rent"
-      rent = Rent.where(car_id: id).last.user
+      current_renter = rents.last.user
     else
       "Car is Available for Rent"
     end
   end
 
   def rent_by_all
-    all_rents = Rent.where(car_id: id)
-    renters = []
-    all_rents.each do |renter|
-      renters.push(renter.user)
+    all_renters = []
+    rents.each do |renter|  # rents is association method cause we have one to many between car - rents
+      all_renters.push(renter.user)
     end
-    return renters
+    return all_renters
   end
 end

@@ -80,53 +80,54 @@ class CarsController < ApplicationController
   end
 
   private
-    def set_car
-      @car = Car.friendly.find(params[:id])
+
+  def set_car
+    @car = Car.friendly.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def car_params
+    params.require(:car).permit(:company,:main_car_image, :model, :purchase_date, :engine_type, :car_type, :seats,:owner_id, :distance_driven, :transmission_type, :car_description, :registered_number, car_images: [])
+  end
+
+  # ------ To check optional validation -------
+  def validate_car(car)
+    if params[:car][:sell] == "1" && ( params[:car][:sell_price] == "" || params[:car][:sell_price] == "0" || params[:car][:sell_price] < "0" )
+      car.sell_checked = true
+      car.sell_price = nil
     end
 
-    # Only allow a list of trusted parameters through.
-    def car_params
-      params.require(:car).permit(:company,:main_car_image, :model, :purchase_date, :engine_type, :car_type, :seats,:owner_id, :distance_driven, :transmission_type, :car_description, :registered_number, car_images: [])
+    if params[:car][:rent] == "1" && ( params[:car][:rent_price] == "" || params[:car][:rent_price] == "0" || params[:car][:rent_price] < "0" )
+      car.rent_checked = true
+      car.rent_price = nil
     end
 
-    # ------ To check optional validation -------
-    def validate_car(car)
-      if params[:car][:sell] == "1" && ( params[:car][:sell_price] == "" || params[:car][:sell_price] == "0" || params[:car][:sell_price] < "0" )
-        car.sell_checked = true
-        car.sell_price = nil
-      end
-  
-      if params[:car][:rent] == "1" && ( params[:car][:rent_price] == "" || params[:car][:rent_price] == "0" || params[:car][:rent_price] < "0" )
-        car.rent_checked = true
-        car.rent_price = nil
-      end
+    if params[:car][:sell] == "0" && params[:car][:rent] == "0"
+      car.invalid_purpose = true
+      car.purpose.clear
+    end
+  end
 
-      if params[:car][:sell] == "0" && params[:car][:rent] == "0"
-        car.invalid_purpose = true
-        car.purpose.clear
+  # ------- To add optional value to object -------
+  def add_to_car(car)
+    if params[:car][:sell] == "1"
+      if !car.purpose.include?("sell")
+        car.purpose.push("sell")
       end
+      car.sell_price = params[:car][:sell_price]
+    else
+      car.purpose.delete("sell")
+      car.sell_price = nil 
     end
 
-    # ------- To add optional value to object -------
-    def add_to_car(car)
-      if params[:car][:sell] == "1"
-        if !car.purpose.include?("sell")
-          car.purpose.push("sell")
-        end
-        car.sell_price = params[:car][:sell_price]
-      else
-        car.purpose.delete("sell")
-        car.sell_price = nil 
+    if params[:car][:rent] == "1"
+      if !car.purpose.include?("rent")
+        car.purpose.push("rent")
       end
-
-      if params[:car][:rent] == "1"
-        if !car.purpose.include?("rent")
-          car.purpose.push("rent")
-        end
-        car.rent_price = params[:car][:rent_price]
-      else
-        car.purpose.delete("rent")
-        car.rent_price = nil
-      end
+      car.rent_price = params[:car][:rent_price]
+    else
+      car.purpose.delete("rent")
+      car.rent_price = nil
     end
+  end
 end
