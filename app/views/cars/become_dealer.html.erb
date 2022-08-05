@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="card" style="width: 50rem;">
+  <% if @user.errors.any? %>
+    <div style="color: red">
+      <h2>
+          <%= pluralize(@user.errors.count, "error" ) %> prohibited this car from being saved:
+      </h2>
+      <ul>
+        <% @user.errors.each do |error| %>
+          <li>
+            <%= error.full_message %>
+          </li>
+          <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <div class="card-body ">
+      <h4 class="card-title text-center">Become A Dealer</h4>
+        <%= form_with model: @user, url: set_dealer_path do |form| %><br>
+          <div class='dropdown-style'>
+          <%= form.select(:payment_gateway, User.payment_gateways.keys.map {|key| [key.humanize, key]}) %><br><br>
+          <%= form.label :Secret_key %><br/>
+          <%= form.password_field :Secret_key,class: "mb-2 form-control" %>
+          <%= form.label :Public_key %><br/>
+          <%= form.password_field :Public_key,class: "mb-2 form-control" %>
+          <%= form.submit class:"btn btn-primary"%><br>
+        <%end%>
+    </div>
+  </div>  
+</div>  

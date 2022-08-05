@@ -9,11 +9,11 @@ require 'time'
 
 5.times do |i|
   # ------------  User Create ------------
-  user = User.create!(first_name: "User#{i}", last_name: "User#{i}", contact: 7856421320 + i, email: "user#{i}@user.user", password: "User@123456", password_confirmation: "User@123456")
+  user = User.create!(first_name: "User#{i}", last_name: "User#{i}", contact: 7856421320 + i, email: "user#{i}@user.user", password: "User@123456", password_confirmation: "User@123456", Public_key:"tXhs12385jghbtbn", Secret_key:"giugiufhgTYUbu456")
 
 
   # ------------  Car Create ------------  
-  car = Car.create!( company: "company #{i}", model: "model #{i}", purchase_date: "5-10-2000", engine_type: 0, car_type: 0, seats: 5, distance_driven: 2000 + i, transmission_type: 0, car_description: "This is #{i}th car", registered_number: "GJ03AB000#{i}", owner_id: user.id, purpose: "[sell,rent]", sell_price: 250000, rent_price: 15 )
+  car = Car.create!( company: "company #{i}", model: "model #{i}", purchase_date: "5-10-2000", engine_type: 0, car_type: 0, seats: 5, distance_driven: 2000 + i, transmission_type: 0, car_description: "This is #{i}th car", registered_number: "GJ03AB000#{i}", owner_id: user.id, purpose: ['sell','rent'], sell_price: 250000, rent_price: 15 )
 
 
   # ------------  Rent Create ------------

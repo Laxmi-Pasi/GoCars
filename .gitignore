@@ -32,3 +32,4 @@
 .env
 Gemfile.lock
 config/initializers/cloudinary.yml
+/config/credentials/development.key

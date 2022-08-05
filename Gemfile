@@ -78,3 +78,5 @@ gem "pry", "~> 0.14.1"
 gem 'faker'
 gem 'friendly_id', '~> 5.1.0', require: "friendly_id"
 gem 'cancancan'
+gem 'stripe'
+gem 'kaminari'
