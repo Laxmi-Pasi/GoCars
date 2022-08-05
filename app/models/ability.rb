@@ -9,7 +9,8 @@ class Ability
     can :read, :all
     can :create, Car 
     return unless user.present?
-      can [:update, :destroy], Car, owner_id: user.id
+    can [:update, :destroy], Car, owner_id: user.id
+    # can [:update], User, id: user.id
     #   return unless user.admin?
     #   can :manage, :all
     #

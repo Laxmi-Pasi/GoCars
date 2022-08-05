@@ -30,4 +30,8 @@ class User < ApplicationRecord
   validates :email, presence: true,uniqueness: {case_sensitive: false}, length: {maximum:105}, format: { with: VALID_EMAIL_REGEX}
   validates :contact,numericality: {only_integer: true, message: "must be number"},
             length: {is: 10, message: "must be of ten digits"},uniqueness: true
+
+  validates :Public_key,:Secret_key, presence: true, if: :check_for_dealer       
+  enum  payment_gateway: [:stripe, :paypal, :braintree, :card_connect]
+  attr_accessor :check_for_dealer
 end

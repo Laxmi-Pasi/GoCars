@@ -1,0 +1,9 @@
+console.log("hiii");
+console.log("<%=@public_key%>");
+var stripe = Stripe("pk_test_51LADWPDokNUprgpYgYpe41v3utWPoc6ZX0OD1SfToDjDpUpK9BCdlWZGA1dG9OMMUdiDvUdR9VAlFuHBaQFkmTn100fbztS1bp");
+<% puts "-------------------------------------------------------"%>
+<% puts @session.id %>
+stripe.redirectToCheckout({
+sessionId: "<%= @session.id %>"
+}).then(function (result) {
+});     

@@ -21,11 +21,13 @@
             <p>Kms Covered: 20000</p>
             <p>  <strong>Price: 500000</strong></p>
             <div class="wrapper d-flex justify-content-between">
-              <a href="#" class="btn btn-primary btn_width">Buy</a>
+           <%= button_to "Buy Now!",checkout_create_path(5), class:"btn btn-primary", data: { turbo: false }, remote: true %>
               <a href="#" class="btn btn-primary btn_width">Rent</a>
             </div>
           </div>
         </div>
+        <%# binding.pry %>
+        <% paginate @cars %>
       <%end%>
     </div>
   </div>

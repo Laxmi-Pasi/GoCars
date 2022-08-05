@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters_for_update, if: :devise_controller?
   rescue_from CanCan::AccessDenied do |exception|
     flash[:alert] = "You are not authorized to #{exception.action} this #{exception.subject.class}"
+    # binding.pry
     redirect_to root_path 
   end
 
