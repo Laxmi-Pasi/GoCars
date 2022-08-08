@@ -27,7 +27,6 @@ class CarsController < ApplicationController
   end
 
   def set_dealer
-    # binding.pry
     @user = current_user
     @user.check_for_dealer = true
     if @user.update(dealer_params)
