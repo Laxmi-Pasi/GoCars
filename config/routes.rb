@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root "cars#index"
   devise_for :users
-  post 'checkout/create/:id', to: "checkout#create", as: :checkout_create
+  post 'checkout/sell/:id', to: "checkout#sell", as: :checkout_sell
+  post 'checkout/rent/:id', to: "checkout#rent", as: :checkout_rent
   patch 'set_dealer', to: "cars#set_dealer", as: :set_dealer
   resources :cars do
     delete 'delete_car_image', on: :member
