@@ -23,6 +23,7 @@ class CheckoutController < ApplicationController
       format.js
     end
   end  
+  
   def rent
     @car = Car.friendly.find(params[:id])
     price = @car.rent_price.to_i
@@ -43,6 +44,5 @@ class CheckoutController < ApplicationController
         respond_to do |format|
       format.js
     end
-    # redirect_to @session.url, allow_other_host: true
   end
 end

@@ -51,5 +51,4 @@ class Car < ApplicationRecord
     end
     return all_renters
   end
-  # paginates_per
 end

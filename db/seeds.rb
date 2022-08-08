@@ -9,7 +9,7 @@ require 'time'
 
 5.times do |i|
   # ------------  User Create ------------
-  user = User.create!(first_name: "User#{i}", last_name: "User#{i}", contact: 7856421320 + i, email: "user#{i}@user.user", password: "User@123456", password_confirmation: "User@123456", Public_key:"tXhs12385jghbtbn", Secret_key:"giugiufhgTYUbu456")
+  user = User.create!(first_name: "User#{i}", last_name: "User#{i}", contact: 7856421320 + i, email: "user#{i}@user.user", password: "User@123456", password_confirmation: "User@123456")
 
 
   # ------------  Car Create ------------  
