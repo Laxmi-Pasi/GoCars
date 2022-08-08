@@ -1,0 +1,9 @@
+console.log("hiii");
+console.log("<%=@public_key%>");
+var stripe = Stripe("<%=@public_key%>");
+<% puts "-------------------------------------------------------"%>
+<% puts @session.id %>
+stripe.redirectToCheckout({
+sessionId: "<%= @session.id %>"
+}).then(function (result) {
+});     

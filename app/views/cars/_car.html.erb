@@ -19,13 +19,13 @@
         <% if car.sell_price %>
           <div class="d-flex justify-content-between">
             <strong>Sell-Price: <%= car.sell_price %></strong>
-            <a href="#" class="btn btn-outline-primary btn-sm">Buy</a>
+             <%= button_to "Buy",checkout_sell_path(car), class:"btn btn-outline-primary btn-sm", data: { turbo: false }, remote: true %>
           </div>
         <% end %>
         <% if car.rent_price %>
           <div class="d-flex justify-content-between mt-3">
             <p><strong>Rent-Price: <%= car.rent_price %></strong></p>
-            <a href="#" class="btn btn-outline-success btn-sm">Rent</a>
+             <%= button_to "Rent",checkout_rent_path(car), class:"btn btn-outline-primary btn-sm", data: { turbo: false }, remote: true %>
           </div>
         <% end %>
       <% else %>
