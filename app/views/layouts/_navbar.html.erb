@@ -26,14 +26,16 @@
           </ul>
         </li>
       </ul>
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success me-5" type="submit">Search</button>
-          </form>
-        </li>
-      </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0"">
+          <li class="nav-item">
+            <% if params[:action]=='index'%>
+            <%= form_tag cars_path, :method => 'get',class:"d-flex" ,local:true do %>
+              <%= text_field_tag :query, params[:query], id:"query", class:"form-control me-2", placeholder: 'Search' %>
+              <%= submit_tag "Search", class:"btn btn-outline-success me-5"%>
+            <% end %>
+          <% end %>
+          </li>
+        </ul>
       <% if signed_in? %>
         <li class="nav-item dropdown">
           <a class="btn btn-outline-light me-2 dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,3 +59,21 @@
         <% end %>
     </div>
 </nav>
+
+<!--To add elasticsearch autocomplete -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<%= render 'layouts/typeahead_bundle_Js'%>
+<script>
+  var cars = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: '/search_for_cars?query=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+  $('#query').typeahead(null, {
+    highlight: true,
+    source: cars
+  });
+</script>

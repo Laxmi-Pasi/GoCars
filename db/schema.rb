@@ -55,13 +55,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_03_142615) do
     t.string "registered_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.integer "owner_id", null: false
     t.text "purpose", default: [], array: true
     t.float "sell_price"
     t.integer "buyer_id"
     t.integer "car_status", default: 0
     t.float "rent_price"
-    t.string "slug"
     t.index ["slug"], name: "index_cars_on_slug", unique: true
   end
 

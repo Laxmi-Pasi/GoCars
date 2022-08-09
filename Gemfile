@@ -80,3 +80,5 @@ gem 'friendly_id', '~> 5.1.0', require: "friendly_id"
 gem 'cancancan'
 gem 'stripe'
 gem 'kaminari'
+gem "searchkick"
+gem  "elasticsearch", "< 7.14"

@@ -1,15 +1,17 @@
 class CarsController < ApplicationController
   before_action :set_car, only: %i[ show edit update destroy delete_car_image]
   authorize_resource
-  skip_authorize_resource only: :set_dealer
-  skip_authorize_resource only: :delete_car_image
-
+  skip_authorize_resource only: [:set_dealer, :search_for_cars, :delete_car_image]
+  
   # GET /cars or /cars.json
   def index
-    if current_user
-     @cars = params[:my_cars] ? Car.where(owner_id: current_user.id) : Car.where.not(owner_id: current_user.id) 
+    search = params[:query].present? ? params[:query] : nil
+    if search
+      @cars =  Car.search(search, fields: [{company: :text_middle}, {model: :text_middle}])
+      @cars= Car.where(owner_id: current_user.id) if params[:my_cars] && current_user
     else
       @cars = Car.all
+      @cars= Car.where(owner_id: current_user.id) if params[:my_cars] && current_user
     end
   end
 
@@ -96,6 +98,11 @@ class CarsController < ApplicationController
     end
   end
 
+  # autocomplete /cars/search_for_cars?query
+  
+  def search_for_cars
+    render json: Car.search(params[:query], fields: ["model", "company"],match: :text_middle,limit: 10,load: false, misspellings: {below: 5}).map(&:company)
+  end
   
   private
 
