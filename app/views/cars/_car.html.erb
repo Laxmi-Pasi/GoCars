@@ -1,13 +1,13 @@
-<div class="car_image_card mx-3 my-3" style="width: 18rem;height: 25rem;">
+<div class="shadow car_image_card mx-3 my-3" style="width: 18rem;height: 25rem;">
   <div>
     <div style="height:198px;width:262px;">
-      <% if params[:action] == "index" %>
-        <%= link_to car_path(car) do %>
-          <%# ------- Car's Main image goes here ------ %>
-          <%= image_tag("car2.jpeg", :alt => "rss feed", class: "card-img-top") %>
+      <%# ------- Car's Main image goes here ------ %>
+      <%= link_to car_path(car) do %>
+      <% if car.main_car_image.key?%>
+          <p>
+            <%= cl_image_tag(car.main_car_image.key) %>
+          </p>
         <% end %>
-      <% else %>
-        <%= image_tag("car2.jpeg", :alt => "rss feed", class: "card-img-top") %>
       <% end %>
     </div>
   </div>
@@ -17,25 +17,25 @@
     <div class="wrapper d-flex flex-column justify-content-between">
       <% if car.owner != current_user %>
         <% if car.sell_price %>
-          <div class="d-flex justify-content-between">
+          <div class="d-flex align-items-center justify-content-between">
             <strong>Sell-Price: <%= car.sell_price %></strong>
              <%= button_to "Buy",checkout_sell_path(car), class:"btn btn-outline-primary btn-sm", data: { turbo: false }, remote: true %>
           </div>
         <% end %>
         <% if car.rent_price %>
-          <div class="d-flex justify-content-between mt-3">
+          <div class="d-flex align-items-center justify-content-between mt-3">
             <p><strong>Rent-Price: <%= car.rent_price %></strong></p>
-             <%= button_to "Rent",checkout_rent_path(car), class:"btn btn-outline-primary btn-sm", data: { turbo: false }, remote: true %>
+             <%= button_to "Rent",checkout_rent_path(car), class:"btn btn-outline-success btn-sm", data: { turbo: false }, remote: true %>
           </div>
         <% end %>
       <% else %>
         <% if car.sell_price %>
-          <div class="d-flex justify-content-between">
+          <div class="d-flex align-items-center justify-content-between">
             <strong>Sell-Price: <%= car.sell_price %></strong>
           </div>
         <% end %>
         <% if car.rent_price %>
-          <div class="d-flex justify-content-between mt-1">
+          <div class="d-flex align-items-center justify-content-between mt-1">
             <strong>Rent-Price: <%= car.rent_price %></strong>
           </div>
         <% end %>

@@ -1,7 +1,10 @@
 <!---navbar -->
 <nav class="navbar navbar-expand-lg navbar fixed-top navbar-dark bg-dark ">
   <div class="container-fluid ">
-    <a class="navbar-brand" href="#">GoCars</a>
+    <a class="navbar-brand" href="#">
+      <a href="/" class="me-2"><%= image_tag("Logo.svg",:size => "30x50")%></a>
+      
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -41,16 +44,16 @@
           
             <li><%= link_to "Become a Dealer", new_car_path , class:"dropdown-item"%></li>
             <li><%= link_to "My Cars",root_path(my_cars: "my_cars"), class:"dropdown-item" %>
-          </ul>
-        </li>
-        <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: "false" }, class:"btn btn-outline-danger" %>
-      <% else %>
-        <ul class="navbar-nav mb-2 mb-lg-0">
-          <li class="nav-item">
-            <%= link_to "Log in", new_user_session_path, class:"btn btn-outline-warning me-2" %>
-            <%= link_to "Register", new_user_registration_path, class:"btn btn-outline-primary" %>
+            </ul>
           </li>
-        </ul>
-      <% end %>
+          <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: "false" }, class:"btn btn-outline-danger" %>
+        <% else %>
+          <ul class="navbar-nav mb-2 mb-lg-0">
+            <li class="nav-item">
+              <%= link_to "Log in", new_user_session_path, class:"btn btn-outline-warning me-2" %>
+              <%= link_to "Register", new_user_registration_path, class:"btn btn-outline-primary" %>
+            </li>
+          </ul>
+        <% end %>
     </div>
-  </nav>
+</nav>

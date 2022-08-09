@@ -6,16 +6,17 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 require 'time'
-
-5.times do |i|
+require 'faker'
+15.times do |i|
   # ------------  User Create ------------
-  user = User.create!(first_name: "User#{i}", last_name: "User#{i}", contact: 7856421320 + i, email: "user#{i}@user.user", password: "User@123456", password_confirmation: "User@123456")
+  user = User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name , contact: Faker::Number.number(digits: 10), email: Faker::Internet.email, password: "User@123456", password_confirmation: "User@123456")
 
 
   # ------------  Car Create ------------  
-  car = Car.create!( company: "company #{i}", model: "model #{i}", purchase_date: "5-10-2000", engine_type: 0, car_type: 0, seats: 5, distance_driven: 2000 + i, transmission_type: 0, car_description: "This is #{i}th car", registered_number: "GJ03AB000#{i}", owner_id: user.id, purpose: ['sell','rent'], sell_price: 250000, rent_price: 15 )
+  car = Car.create!( company: Faker::Vehicle.make, model: Faker::Vehicle.model, purchase_date: "5-10-2000", engine_type: 0, car_type: 0, seats:4 , distance_driven: Faker::Vehicle.kilometrage, transmission_type: 0, car_description: Faker::Lorem.sentence(word_count: 150), registered_number: Faker::Vehicle.singapore_license_plate , owner_id: user.id, purpose: ['sell','rent'], sell_price: Faker::Bank.account_number(digits: 5), rent_price: Faker::Bank.account_number(digits: 6))
 
-
+  #-------------  Upload Image -----------
+  car.main_car_image.attach(io: File.open('app/assets/images/car_main_image.jpg'), filename: 'car_main_image.jpg')
   # ------------  Rent Create ------------
   Rent.create!(user_id: user.id, car_id: car.id, no_of_days: 5, Total_Price: 75)
 

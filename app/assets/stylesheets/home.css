@@ -29,3 +29,7 @@ p {
 .btn_width {
   width: 45%;
 }
+
+body{
+  padding-top: 5rem;
+}
