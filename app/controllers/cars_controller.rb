@@ -1,7 +1,8 @@
 class CarsController < ApplicationController
-  before_action :set_car, only: %i[ show edit update destroy ]
+  before_action :set_car, only: %i[ show edit update destroy delete_car_image]
   authorize_resource
   skip_authorize_resource only: :set_dealer
+  skip_authorize_resource only: :delete_car_image
 
   # GET /cars or /cars.json
   def index
@@ -88,11 +89,10 @@ class CarsController < ApplicationController
   # DELETE /cars/1/car_image
 
   def delete_car_image
-    @car = Car.find(params['id'])
-    @car_image = @car.car_images.find(params['image_id'])
+    @car_image = @car.car_images.find(params[:image_id])
     @car_image.purge
     respond_to do |format|
-      format.html { redirect_to @car, notice: 'car image was successfully destroyed.' }
+      format.html { redirect_to edit_car_url(@car), notice: 'car image was successfully destroyed.' }
     end
   end
 

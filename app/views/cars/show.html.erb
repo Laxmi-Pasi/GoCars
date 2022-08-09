@@ -1,44 +1,115 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @car %>
-<div>
-  <% if @car.main_car_image.key?%>
-    <p> 
-      <strong>Main Car Image:</strong>
-    </p>
-    <p>
-      <%= cl_image_tag(@car.main_car_image.key, height: 200, width: 200) %>
-    </p>
-  <% end %>
-  <% if @car.has_car_images?%>
-    <p>
-    <strong>Car Images:</strong>
-    <% @car.car_images.each do |image| %>
-      <div style="display: inline-block; width: 200">
-        <%#= link_to(cl_image_tag(image.key, height: 200, width: 200, gravity: :auto, crop: :thumb, sign_url: true, fetch_format: :auto), url_for(image)) %>
-        <%= cl_image_tag(image.key, height: 200, width: 200) %>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+  </head>
+  <body>
+    <div class = "card-wrapper">
+      <div class = "card-car">
+        <!--carousel-->
+        <div id="carouselExampleIndicators" class="carousel slide product-imgs" data-bs-ride="carousel" style="width: 30rem;">
+          <div class="carousel-indicators img-display">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <% i=1; j=2;%>
+            <% @car.car_images.each do |car|%>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%=i%>" aria-label="Slide <%=j%>"></button>
+              <% i = i+1; j=j+1;%>
+            <% end %>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <%= cl_image_tag(@car.main_car_image.key) %>
+            </div>
+            <% @car.car_images.each do |car|%>
+              <div class="carousel-item">
+                <%= cl_image_tag(car.key, class:"d-block w-100") %>
+              </div>
+            <% end %>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <div class = "product-content" style="width: 50rem;">
+          <h2 class = "product-title"><%= @car.company%><%= @car.model%></h2>
+          <a class = "product-link"> Seller: <%= @car.owner.email%></a>
+          <div class = "product-price">
+            <% if @car.owner != current_user %>
+              <% if @car.sell_price %>
+                <div class="d-flex align-items-center justify-content-between">
+                  <p class = "new-price">Sell Price: <span><%=@car.sell_price%></span></p>
+                  <%= button_to "Buy",checkout_sell_path(@car), class:"btn btn-primary btn-sm", data: { turbo: false }, remote: true %>
+                </div>
+              <% end %>
+              <% if @car.rent_price %>
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                  <p class = "last-price">Rent Price: <span><%= @car.rent_price%></span></p>
+                  <%= button_to "Rent",checkout_rent_path(@car), class:"btn btn-success btn-sm", data: { turbo: false }, remote: true %>
+                </div>
+              <% end %>
+            <% else %>
+              <% if @car.sell_price %>
+                <div class="d-flex align-items-center justify-content-between">
+                  <p class = "new-price">Sell Price: <span><%=@car.sell_price%></span></p>
+                </div>
+              <% end %>
+              <% if @car.rent_price %>
+                <div class="d-flex align-items-center justify-content-between mt-1">
+                  <p class = "last-price">Rent Price: <span><%= @car.rent_price%></span></p>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <div class = "product-detail">
+            <h2>Description </h2>
+            <p><%= @car.car_description %></p>
+            <ul>
+              <li>Model: <span><%= @car.purchase_date.year%></span></li>
+              <li>Car Type: <span><%= @car.car_type%></span></li>
+              <li>Transmission Type: <span><%= @car.transmission_type%></span></li>
+              <li>Engine: <span><%= @car.engine_type%></span></li>
+              <li>Capacity: <span><%= @car.seats%> seater</span></li>
+              <li>DIstance Driven: <span><%= @car.distance_driven%> KMs</span></li>
+            </ul>
+          </div>
+          <div class = "social-links">
+            <p>Share At: </p>
+            <a href = "#">
+              <i class = "fab fa-facebook-f"></i>
+            </a>
+            <a href = "#">
+              <i class = "fab fa-twitter"></i>
+            </a>
+            <a href = "#">
+              <i class = "fab fa-instagram"></i>
+            </a>
+            <a href = "#">
+              <i class = "fab fa-whatsapp"></i>
+            </a>
+            <a href = "#">
+              <i class = "fab fa-pinterest"></i>
+            </a>
+          </div>
+          <div>
+            <br>
+            <div>
+              <% if can? :update, @car%>
+                <%= link_to "Edit this car", edit_car_path(@car),class:"btn btn-outline-dark btn-sm me-2" %>
+              <% end %>
+              <%= link_to "Back to cars", cars_path,class:"btn btn-outline-primary btn-sm me-2" %>
+              <% if can? :destroy, @car%>
+                <%= link_to "Destroy this car", @car, method: :delete,class:"btn btn-outline-danger btn-sm" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
       </div>
-    <% end %>
-    <p>
-    </p>
-  <% end %>
-</div>
-
-<!-- To add car_image -->
-<div class="border">
-<%= form_with(model: @car, local: true) do |form| %>
-  <p>
-    <%= form.label :car_images, "Upload New Photos:" %>
-    <%= form.file_field :car_images, multiple: true %>
-  </p>
-  <div class="actions">
-    <%= form.submit "Upload" , data: { turbo: false}%>
-  </div>
-<% end %>
-
-</div>
-<div>
-  <%= link_to "Edit this car", edit_car_path(@car) %> |
-  <%= link_to "Back to cars", cars_path %>
-  <%= button_to "Destroy this car", @car, method: :delete %>
-</div>
+    </body>
+</html>
