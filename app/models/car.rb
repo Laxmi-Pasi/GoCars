@@ -2,6 +2,7 @@ class Car < ApplicationRecord
   attr_accessor :sell_checked
   attr_accessor :rent_checked
   attr_accessor :invalid_purpose
+  searchkick text_middle: [:company, :model]
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
   has_many :rents
@@ -19,14 +20,15 @@ class Car < ApplicationRecord
   enum transmission_type: [:Manual, :Automatic]
   enum car_status: [:active, :rent, :sold] 
 
-  # to check car images
-  def has_car_images?
-    car_images_attachments != []
-  end
   # serialize :purpose, Array
   validates :sell_price, presence: true, if: :sell_checked
   validates :rent_price, presence: true, if: :rent_checked
   validates :purpose, presence: { message: "Car should be available for one purpose" }, if: :invalid_purpose
+
+  # to check car images
+  def has_car_images?
+    car_images_attachments != []
+  end
 
   # to add slug_candidates
 
