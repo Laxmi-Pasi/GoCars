@@ -8,4 +8,8 @@ Rails.application.routes.draw do
   resources :cars do
     delete 'delete_car_image', on: :member
   end
+  # for paypal payment
+  get 'paypal_car_payment', to: "cars#paypal_car_payment"
+  post :create_paypal_car, :to => 'cars#create_paypal_car'
+  post :capture_paypal_car, :to => 'cars#capture_paypal_car'
 end

@@ -18,7 +18,11 @@
         <% if car.sell_price %>
           <div class="d-flex align-items-center justify-content-between">
             <strong>Sell-Price: <%= car.sell_price %></strong>
-             <%= button_to "Buy",checkout_sell_path(car), class:"btn btn-outline-primary btn-sm", data: { turbo: false }, remote: true %>
+            <% if car.owner.payment_gateway=='stripe'%>
+              <%= button_to "Buy",checkout_sell_path(car), class:"btn btn-outline-primary btn-sm", data: { turbo: false }, remote: true %>
+            <% elsif car.owner.payment_gateway=='paypal' %>
+              <%= link_to "Buy", "/paypal_car_payment?id=#{car.id}" , class:"btn btn-outline-primary btn-sm" %>
+            <% end %>
           </div>
         <% end %>
         <% if car.rent_price %>

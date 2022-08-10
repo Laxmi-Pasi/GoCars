@@ -60,4 +60,17 @@ class Car < ApplicationRecord
     end
     return all_renters
   end
+
+  # to find owner's payment gateway 
+
+  def select_payment_path(car)
+    payment_gateway= car.owner.payment_gateway
+    if payment_gateway == 'stripe'
+      return "/checkout/sell/#{car.friendly_id}"
+    elsif payment_gateway == 'paypal'
+      return "/paypal_car_payment?id=#{car.friendly_id}"
+    else
+      return "root_path"
+    end
+  end
 end

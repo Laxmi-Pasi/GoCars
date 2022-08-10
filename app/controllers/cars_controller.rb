@@ -1,8 +1,9 @@
 class CarsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:create_paypal_car, :capture_paypal_car] 
   before_action :set_car, only: %i[ show edit update destroy delete_car_image]
   authorize_resource
-  skip_authorize_resource only: [:set_dealer, :search_for_cars, :delete_car_image]
-  
+  skip_authorize_resource only: [:set_dealer, :delete_car_image, :paypal_car_payment, :create_paypal_car, :capture_paypal_car]
+
   # GET /cars or /cars.json
   def index
     search = params[:query].present? ? params[:query] : nil
@@ -100,6 +101,24 @@ class CarsController < ApplicationController
     render json: Car.search(params[:query], fields: ["model", "company"],match: :text_middle,limit: 10,load: false, misspellings: {below: 5}).map(&:company)
   end
   
+  # paypal payment 
+  def paypal_car_payment
+    session[:car_id] = params[:id]
+    PaypalService.new(session[:car_id]).create_car
+  end
+  
+  # /create_paypal_car
+  def create_paypal_car
+    response = PaypalService.new(session[:car_id]).create_car
+    return render :json => {:token => response.result.id}, :status => :ok
+  end
+
+  # /capyure_paypal_car
+  def capture_paypal_car
+    response = PaypalService.new(session[:car_id]).capture_car(params[:order_id])
+    return render :json => {:status => response.result.status}, :status => :ok
+  end
+
   private
   
   def set_car
