@@ -11,6 +11,7 @@ class CarsController < ApplicationController
       @cars= Car.where(owner_id: current_user.id) if params[:my_cars] && current_user
     else
       @cars = Car.all
+      @cars = Car.where.not(owner_id: current_user.id) if current_user
       @cars= Car.where(owner_id: current_user.id) if params[:my_cars] && current_user
     end
   end
@@ -46,9 +47,7 @@ class CarsController < ApplicationController
   # POST /cars or /cars.json
   def create
     @car = Car.new(car_params)
-
     validate_car(@car)
-
     respond_to do |format|
       if @car.save
         add_to_car(@car)
@@ -65,7 +64,6 @@ class CarsController < ApplicationController
   # PATCH/PUT /cars/1 or /cars/1.json
   def update
     validate_car(@car)
-
       respond_to do |format|
         if @car.update(car_params)
           add_to_car(@car)
@@ -89,7 +87,6 @@ class CarsController < ApplicationController
   end
 
   # DELETE /cars/1/car_image
-
   def delete_car_image
     @car_image = @car.car_images.find(params[:image_id])
     @car_image.purge
@@ -99,13 +96,11 @@ class CarsController < ApplicationController
   end
 
   # autocomplete /cars/search_for_cars?query
-  
   def search_for_cars
     render json: Car.search(params[:query], fields: ["model", "company"],match: :text_middle,limit: 10,load: false, misspellings: {below: 5}).map(&:company)
   end
   
   private
-
   def set_car
     @car = Car.friendly.find(params[:id])
   end
