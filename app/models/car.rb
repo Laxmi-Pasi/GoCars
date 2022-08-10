@@ -24,6 +24,8 @@ class Car < ApplicationRecord
   validates :sell_price, presence: true, if: :sell_checked
   validates :rent_price, presence: true, if: :rent_checked
   validates :purpose, presence: { message: "Car should be available for one purpose" }, if: :invalid_purpose
+  
+  # callback
   after_update :generate_reindex_for_searchkick
   
   # to generate reindex for searchkick

@@ -101,6 +101,7 @@ class CarsController < ApplicationController
   end
   
   private
+  
   def set_car
     @car = Car.friendly.find(params[:id])
   end
