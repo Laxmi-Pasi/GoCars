@@ -334,6 +334,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   kaminari
+  paypal-checkout-sdk
   pg (~> 1.1)
   pry (~> 0.14.1)
   puma (~> 5.0)
