@@ -1,0 +1,7 @@
+var stripe = Stripe("<%=@car.owner.Public_key%>");
+<% puts "-------------------------------------------------------"%>
+<% puts @session.id %>
+stripe.redirectToCheckout({
+sessionId: "<%= @session.id %>"
+}).then(function (result) {
+});     

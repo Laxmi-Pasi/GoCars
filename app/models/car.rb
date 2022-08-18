@@ -10,7 +10,7 @@ class Car < ApplicationRecord
   belongs_to :owner, class_name: "User"
   has_one_attached :main_car_image, dependent: :destroy
   has_many_attached :car_images
-  
+  has_many :car_transactions
   validates :company, :model, :purchase_date, 
             :car_description, :registered_number, presence: true
   validates :registered_number, presence: true, uniqueness: true 
@@ -59,5 +59,9 @@ class Car < ApplicationRecord
       all_renters.push(renter.user)
     end
     return all_renters
+  end
+
+  def payment_gateway?
+    owner.payment_gateway
   end
 end

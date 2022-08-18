@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  car_id: 1
+  owner_id: 1
+  buyer_id: 1
+  renter_id: 1
+  status: MyString
+  error_msg: MyString
+  response_token: MyString
+
+two:
+  car_id: 1
+  owner_id: 1
+  buyer_id: 1
+  renter_id: 1
+  status: MyString
+  error_msg: MyString
+  response_token: MyString

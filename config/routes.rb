@@ -8,4 +8,11 @@ Rails.application.routes.draw do
   resources :cars do
     delete 'delete_car_image', on: :member
   end
+
+  # for transction 
+  resources :car_transactions do
+    get 'car_sell_payment', on: :member
+    post 'sell_payment', on: :collection
+    post 'paypal_payment_response', on: :collection
+  end
 end
