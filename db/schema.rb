@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_03_142615) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_18_054514) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_03_142615) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "car_transactions", force: :cascade do |t|
+    t.integer "car_id"
+    t.integer "owner_id"
+    t.integer "buyer_id"
+    t.integer "renter_id"
+    t.integer "status", default: 0
+    t.text "error_msg"
+    t.string "response_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "psp_id", null: false
+    t.index ["psp_id"], name: "index_car_transactions_on_psp_id"
+  end
+
   create_table "cars", force: :cascade do |t|
     t.string "company"
     t.string "model"
@@ -55,14 +69,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_03_142615) do
     t.string "registered_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
     t.integer "owner_id", null: false
     t.text "purpose", default: [], array: true
     t.float "sell_price"
     t.integer "buyer_id"
     t.integer "car_status", default: 0
     t.float "rent_price"
+    t.string "slug"
     t.index ["slug"], name: "index_cars_on_slug", unique: true
+  end
+
+  create_table "psps", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "type"
   end
 
   create_table "rents", force: :cascade do |t|
@@ -100,6 +120,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_03_142615) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "car_transactions", "psps"
   add_foreign_key "rents", "cars"
   add_foreign_key "rents", "users"
 end

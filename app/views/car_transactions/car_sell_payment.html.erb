@@ -1,0 +1,32 @@
+<% if @car.payment_gateway? == "PaypalPsp" %>
+  <div id="paypal-button-container"></div>
+  <script src="https://www.paypal.com/sdk/js?client-id=<%=@car.owner.Public_key%>"></script>
+  <script>
+    paypal.Buttons({
+    env: 'sandbox', // Valid values are sandbox and live.
+    createOrder: async () => {
+    const response = await fetch(`/car_transactions/sell_payment`, {method: 'POST'});
+    const responseData = await response.json(); 
+    console.log("--------createOrder-----------")
+    return responseData.token;
+    },
+    onApprove: async (data) => {
+    const response = await fetch('/car_transactions/paypal_payment_response', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({transaction_token: data.orderID, data: data})
+    });
+    const responseData = await response.json();
+    if (responseData.status === 'COMPLETED') {
+      alert('COMPLETED');
+      console.log(responseData)
+      // REDIRECT TO SUCCESS PAGE
+    }
+    }
+    }).render('#paypal-button-container');
+  </script>
+<% elsif @car.payment_gateway? == "StripePsp" %>
+  <%= button_to "Pay Now",sell_payment_car_transactions_path, class:"btn btn-outline-success btn-sm", data:{ turbo: false}, remote: true %>
+<% end %>

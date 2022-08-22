@@ -82,3 +82,4 @@ gem 'stripe'
 gem 'kaminari'
 gem "searchkick"
 gem  "elasticsearch", "< 7.14"
+gem 'paypal-checkout-sdk'

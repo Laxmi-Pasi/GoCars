@@ -6,6 +6,9 @@ class User < ApplicationRecord
   has_many :rents
   has_many :cars, through: :rents
   has_many :vehicles, foreign_key: "owner_id", class_name: "Car"
+  has_many :sell_transactions, foreign_key: "owner_id", class_name: "CarTransaction"
+  has_many :purchase_transactions, foreign_key: "buyer_id", class_name: "CarTransaction"
+
   validates :first_name,:last_name, presence: true, length: {minimum:3 , maximum:25}
   VALID_EMAIL_REGEX= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   PASSWORD_FORMAT = /\A
@@ -32,6 +35,6 @@ class User < ApplicationRecord
             length: {is: 10, message: "must be of ten digits"},uniqueness: true
 
   validates :Public_key,:Secret_key, presence: true, if: :check_for_dealer       
-  enum  payment_gateway: [:stripe, :paypal, :braintree, :card_connect]
+  enum  payment_gateway: [:StripePsp, :PaypalPsp, :braintree, :card_connect]
   attr_accessor :check_for_dealer
 end
