@@ -26,12 +26,12 @@ class Car < ApplicationRecord
   validates :purpose, presence: { message: "Car should be available for one purpose" }, if: :invalid_purpose
   
   # callback
-  after_update :generate_reindex_for_searchkick
+  # after_update :generate_reindex_for_searchkick
   
   # to generate reindex for searchkick
-  def generate_reindex_for_searchkick
-    reindex
-  end
+  # def generate_reindex_for_searchkick
+  #   reindex
+  # end
 
   # to check car images
   def has_car_images?

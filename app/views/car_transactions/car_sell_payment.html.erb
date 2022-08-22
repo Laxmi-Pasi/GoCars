@@ -1,6 +1,6 @@
 <% if @car.payment_gateway? == "PaypalPsp" %>
   <div id="paypal-button-container"></div>
-  <script src="https://www.paypal.com/sdk/js?client-id=AfLOwpfasi3e8fgpbsH2piZILP5t4-cV_1baCz6-g7Si97exDwPxVLofLQsNnAbVMeEpZmEqLmwLvwgS"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=<%=@car.owner.Public_key%>"></script>
   <script>
     paypal.Buttons({
     env: 'sandbox', // Valid values are sandbox and live.
